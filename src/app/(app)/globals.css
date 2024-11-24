@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+    :root {
+        /* Main brand color - A professional teal */
+        --primary: 187 75% 43%;
+        --primary-foreground: 0 0% 100%;
+
+        /* Complementary accent - Warm coral */
+        --accent: 12 85% 60%;
+        --accent-foreground: 0 0% 100%;
+
+        /* Success/Positive color - Fresh green */
+        --success: 142 72% 45%;
+        --success-foreground: 0 0% 100%;
+
+        /* Clean backgrounds */
+        --background: 204 20% 99%;
+        --foreground: 200 15% 20%;
+
+        /* Cards and UI elements */
+        --card: 0 0% 100%;
+        --card-foreground: 200 15% 20%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 200 15% 20%;
+
+        /* Secondary actions and backgrounds */
+        --secondary: 199 50% 96%;
+        --secondary-foreground: 200 15% 20%;
+
+        /* Muted elements */
+        --muted: 200 10% 92%;
+        --muted-foreground: 200 10% 45%;
+
+        /* Destructive actions */
+        --destructive: 0 85% 60%;
+        --destructive-foreground: 0 0% 98%;
+
+        /* UI elements */
+        --border: 200 15% 90%;
+        --input: 200 15% 90%;
+        --ring: 187 75% 43%;
+
+        /* Chart colors - Property analytics */
+        --chart-1: 187 75% 43%; /* Teal */
+        --chart-2: 12 85% 60%; /* Coral */
+        --chart-3: 142 72% 45%; /* Green */
+        --chart-4: 231 68% 58%; /* Blue */
+        --chart-5: 270 65% 60%; /* Purple */
+
+        /* Sidebar specific */
+        --sidebar-background: 187 30% 98%;
+        --sidebar-foreground: 200 15% 20%;
+        --sidebar-primary: 187 75% 43%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 12 85% 60%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 187 15% 90%;
+        --sidebar-ring: 187 75% 43%;
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        /* Main brand color - Brighter in dark mode */
+        --primary: 187 70% 48%;
+        --primary-foreground: 0 0% 100%;
+
+        /* Complementary accent - Warmer in dark mode */
+        --accent: 12 85% 65%;
+        --accent-foreground: 0 0% 100%;
+
+        /* Success color - Adjusted for dark mode */
+        --success: 142 70% 48%;
+        --success-foreground: 0 0% 100%;
+
+        /* Dark mode backgrounds */
+        --background: 200 50% 8%;
+        --foreground: 200 10% 98%;
+
+        /* Cards and UI elements */
+        --card: 200 45% 10%;
+        --card-foreground: 200 10% 98%;
+        --popover: 200 45% 10%;
+        --popover-foreground: 200 10% 98%;
+
+        /* Secondary actions and backgrounds */
+        --secondary: 199 50% 15%;
+        --secondary-foreground: 200 10% 98%;
+
+        /* Muted elements */
+        --muted: 200 40% 15%;
+        --muted-foreground: 200 10% 70%;
+
+        /* Destructive actions */
+        --destructive: 0 85% 65%;
+        --destructive-foreground: 0 0% 98%;
+
+        /* UI elements */
+        --border: 200 45% 20%;
+        --input: 200 45% 20%;
+        --ring: 187 70% 48%;
+
+        /* Chart colors - Brighter for dark mode */
+        --chart-1: 187 70% 55%; /* Teal */
+        --chart-2: 12 85% 65%; /* Coral */
+        --chart-3: 142 70% 50%; /* Green */
+        --chart-4: 231 68% 65%; /* Blue */
+        --chart-5: 270 65% 65%; /* Purple */
+
+        /* Sidebar specific */
+        --sidebar-background: 200 45% 10%;
+        --sidebar-foreground: 200 10% 98%;
+        --sidebar-primary: 187 70% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 12 85% 65%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 200 45% 20%;
+        --sidebar-ring: 187 70% 48%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
