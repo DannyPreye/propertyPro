@@ -13,6 +13,7 @@ import Properties from './collections/Properties';
 import Tenants from './collections/Tenants';
 import Organization from './collections/Organization';
 import Units from './collections/Units';
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -38,4 +39,16 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.FROM_ADDRESS as string,
+    defaultFromName: "Property Pro",
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      }
+    }
+  })
 });

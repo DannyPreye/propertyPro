@@ -1,36 +1,191 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Property Management Platform
 
-## Getting Started
+A modern, multi-tenant property management solution built with Next.js 14 and payload cms, featuring role-based access control, dynamic tenant routing, and a comprehensive property management suite.
 
-First, run the development server:
+## 🏢 Overview
 
+Property Management Platform is a SaaS application that enables property management companies to manage their properties, tenants, and operations efficiently. Each organization gets their own branded portal with specific admin and tenant access levels.
+
+## ✨ Features
+
+### Multi-tenancy
+- Dedicated spaces for each property management organization
+- Custom domain support
+- Organization-specific branding and customization
+- Isolated data and user management
+
+### Role-Based Access Control
+- **Admin Portal** (`/[organization]/admin`)
+  - User management
+  - Property portfolio oversight
+  - Financial reporting
+  - Organization settings
+
+- **Tenant Portal** (`/[organization]/tenant`)
+  - Property viewing and management
+  - Maintenance requests
+  - Payment processing
+  - Document management
+
+- **Public Website** (`/[organization]`)
+  - Organization landing page
+  - Property listings
+  - Contact forms
+  - About and services
+
+### Technical Features
+- Server-side rendering with Next.js 14
+- Secure authentication with NextAuth.js
+- Real-time updates
+- Responsive design
+- Dark mode support
+
+## 🚀 Getting Started
+
+### Prerequisites
+```bash
+Node.js 18.0 or later
+npm or yarn
+```
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/property-management-platform.git
+cd property-management-platform
+```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables
+```env
+# .env.local
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
+
+# Database
+DATABASE_URL=your-database-url
+
+# Other configurations
+...
+```
+
+4. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗 Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── app/
+│   ├── auth/                 # Authentication routes
+│   │   ├── sign-up/           # Login page
+|   |   ├── sign-in/            # Sign-in page
+│   │   └── actions/         # Server actions
+|   ├── (website)/           # public route for the website
+|   |    ├──about             #about page
+│   ├── [tenant]/            # Dynamic tenant routes
+│   │   ├── admin/          # Admin dashboard
+│   │   ├── tenant/         # Tenant portal
+│   │   └── (website)/      # Public website for the individual organization
+│   │   └── layout.tsx      # Tenant layout
+├── components/              # Reusable components
+├── lib/                     # Utility functions
+├── middleware.ts           # Auth & routing middleware
+└── types/                  # TypeScript definitions
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔒 Authentication Flow
 
-## Learn More
+1. Users log in through `/auth/login`
+2. JWT tokens are issued with role and organization data
+3. Middleware validates routes based on:
+   - Authentication status
+   - Organization membership
+   - User role permissions
 
-To learn more about Next.js, take a look at the following resources:
+## 🎨 Theming
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application uses a custom theme with support for both light and dark modes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Primary color: Professional teal (`hsl(187, 75%, 43%)`)
+- Accent color: Warm coral
+- Success indicators: Fresh green
+- Error states: Vibrant red
+- Neutral grays for UI elements
 
-## Deploy on Vercel
+Theme customization is available per organization through the admin panel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 Responsive Design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The platform is fully responsive with breakpoints:
+- Mobile: < 640px
+- Tablet: 640px - 1024px
+- Desktop: > 1024px
+
+## 🔧 API Routes
+
+### Authentication
+- `POST /api/users/login`
+- `POST /api/users/refresh-token`
+- `POST /api/users/logout`
+
+### Organization Management
+- `GET /api/[tenant]/properties`
+- `POST /api/[tenant]/properties`
+- `PUT /api/[tenant]/properties/[id]`
+- `DELETE /api/[tenant]/properties/[id]`
+
+## 🛠 Development
+
+### Running Tests
+```bash
+npm run test
+# or
+yarn test
+```
+
+### Building for Production
+```bash
+npm run build
+# or
+yarn build
+```
+
+### Linting
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- Vercel for hosting and deployment
+- All contributors and users of the platform
+
+## 📞 Support
+
+For support, email support@yourplatform.com or open an issue in the GitHub repository.

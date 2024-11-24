@@ -95,6 +95,11 @@ export interface Organization {
   id: string;
   name: string;
   slug: string;
+  contact: {
+    email: string;
+    phone: string;
+    address: string;
+  };
   description?: string | null;
   companySize?: ('1-10' | '11-50' | '51-100' | '101-500' | '501-1000') | null;
   domains?:
@@ -113,6 +118,13 @@ export interface Organization {
     enableMaintenanceRequests?: boolean | null;
     paymentMethods?: ('bank' | 'card' | 'cash')[] | null;
   };
+  socialLinks?:
+    | {
+        name: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -394,6 +406,13 @@ export interface TenantsSelect<T extends boolean = true> {
 export interface OrganizationsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  contact?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+        address?: T;
+      };
   description?: T;
   companySize?: T;
   domains?:
@@ -415,6 +434,13 @@ export interface OrganizationsSelect<T extends boolean = true> {
         allowTenantPortal?: T;
         enableMaintenanceRequests?: T;
         paymentMethods?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

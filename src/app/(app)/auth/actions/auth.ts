@@ -64,6 +64,7 @@ export const register = async (values: RegistrationProps) =>
 
         const organization = await payload.create({
             collection: "organizations",
+            // @ts-ignore
             data: {
                 name: values.companyName.trim(),
                 companySize: values.companySize,
