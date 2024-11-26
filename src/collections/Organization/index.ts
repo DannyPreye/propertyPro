@@ -29,17 +29,17 @@ const Organization: CollectionConfig = {
                 {
                     name: "email",
                     type: "text",
-                    required: true,
+                    required: false,
                 },
                 {
                     name: "phone",
                     type: "text",
-                    required: true,
+                    required: false,
                 },
                 {
                     name: "address",
                     type: "text",
-                    required: true,
+                    required: false,
                 }
 
             ]
