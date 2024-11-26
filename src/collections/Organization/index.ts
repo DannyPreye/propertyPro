@@ -46,7 +46,7 @@ const Organization: CollectionConfig = {
         },
         {
             name: 'description',
-            type: 'textarea',
+            type: 'text',
         },
         {
             name: "companySize",
@@ -60,15 +60,8 @@ const Organization: CollectionConfig = {
             ]
         },
         {
-            name: 'domains',
-            type: 'array',
-            fields: [
-                {
-                    name: 'domain',
-                    type: 'text',
-                    required: true,
-                },
-            ],
+            name: 'domain',
+            type: 'text',
         },
         {
             name: 'branding',

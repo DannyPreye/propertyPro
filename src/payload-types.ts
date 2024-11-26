@@ -102,12 +102,7 @@ export interface Organization {
   };
   description?: string | null;
   companySize?: ('1-10' | '11-50' | '51-100' | '101-500' | '501-1000') | null;
-  domains?:
-    | {
-        domain: string;
-        id?: string | null;
-      }[]
-    | null;
+  domain?: string | null;
   branding?: {
     logo?: (string | null) | Media;
     primaryColor?: string | null;
@@ -417,12 +412,7 @@ export interface OrganizationsSelect<T extends boolean = true> {
       };
   description?: T;
   companySize?: T;
-  domains?:
-    | T
-    | {
-        domain?: T;
-        id?: T;
-      };
+  domain?: T;
   branding?:
     | T
     | {
