@@ -110,13 +110,23 @@ const authOptions: NextAuthOptions = {
                     const { email, password } = credentials as UserCredentials;
 
                     const { data } = await axios.post<AuthResponse>(
-                        `${process.env.NEXTAUTH_URL}/api/users/login`,
+                        `${process.env.NEXTAUTH_URL}/api/users/login?depth=1`,
                         { email, password }
                     );
 
+                    console.log("This is ther user data", data);
                     if (data && data.user) {
-                        return {
+                        const user = {
                             ...data.user,
+                            organization: {
+                                id: data.user.organization.id,
+                                name: data.user.organization.name,
+                                slug: data.user.organization.slug,
+
+                            }
+                        };
+                        return {
+                            ...user,
                             token: data.token,
                             exp: data.exp,
                         };

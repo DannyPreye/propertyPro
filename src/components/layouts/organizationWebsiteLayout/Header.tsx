@@ -23,7 +23,7 @@ const Header: React.FC<Props> = ({ orgData }) => {
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 isScrolled
-                    ? "bg-white/90 backdrop-blur-md shadow-sm"
+                    ? "bg-background/90 backdrop-blur-md shadow-sm"
                     : "bg-transparent"
             }`}
         >
@@ -31,40 +31,48 @@ const Header: React.FC<Props> = ({ orgData }) => {
                 <div className='flex items-center justify-between h-20'>
                     <div className='flex items-center gap-8'>
                         <img
-                            src={orgData.logo}
-                            alt={`${orgData.name} logo`}
+                            src={orgData?.logo}
+                            alt={`${orgData?.name} logo`}
                             className='w-10 h-10 rounded'
                         />
                         <nav className='hidden lg:flex items-center gap-8'>
                             <a
                                 href='#properties'
                                 className={`font-medium ${
-                                    isScrolled ? "text-gray-700" : "text-white"
-                                } hover:text-blue-500 transition-colors`}
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
+                                } hover:text-primary transition-colors`}
                             >
                                 Properties
                             </a>
                             <a
                                 href='#features'
                                 className={`font-medium ${
-                                    isScrolled ? "text-gray-700" : "text-white"
-                                } hover:text-blue-500 transition-colors`}
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
+                                } hover:text-primary transition-colors`}
                             >
                                 Features
                             </a>
                             <a
                                 href='#testimonials'
                                 className={`font-medium ${
-                                    isScrolled ? "text-gray-700" : "text-white"
-                                } hover:text-blue-500 transition-colors`}
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
+                                } hover:text-primary transition-colors`}
                             >
                                 Testimonials
                             </a>
                             <a
                                 href='#contact'
                                 className={`font-medium ${
-                                    isScrolled ? "text-gray-700" : "text-white"
-                                } hover:text-blue-500 transition-colors`}
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
+                                } hover:text-primary transition-colors`}
                             >
                                 Contact
                             </a>
@@ -75,30 +83,34 @@ const Header: React.FC<Props> = ({ orgData }) => {
                         <Button
                             variant='ghost'
                             className={
-                                isScrolled ? "text-gray-700" : "text-white"
+                                isScrolled
+                                    ? "text-foreground"
+                                    : "text-primary-foreground"
                             }
                         >
                             Log In
                         </Button>
-                        <Button className='bg-blue-600 hover:bg-blue-700'>
-                            View Properties
-                        </Button>
+                        <Button variant='default'>View Properties</Button>
                     </div>
 
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className='lg:hidden p-2 rounded-full hover:bg-gray-100/10'
+                        className='lg:hidden p-2 rounded-full hover:bg-accent/10'
                     >
                         {isMenuOpen ? (
                             <X
                                 className={
-                                    isScrolled ? "text-gray-700" : "text-white"
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
                                 }
                             />
                         ) : (
                             <Menu
                                 className={
-                                    isScrolled ? "text-gray-700" : "text-white"
+                                    isScrolled
+                                        ? "text-foreground"
+                                        : "text-primary-foreground"
                                 }
                             />
                         )}
@@ -108,7 +120,7 @@ const Header: React.FC<Props> = ({ orgData }) => {
 
             {/* Mobile menu */}
             <div
-                className={`lg:hidden absolute w-full bg-white shadow-lg transition-all duration-300 ${
+                className={`lg:hidden absolute w-full bg-background shadow-lg transition-all duration-300 ${
                     isMenuOpen
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 -translate-y-4 pointer-events-none"
@@ -117,25 +129,25 @@ const Header: React.FC<Props> = ({ orgData }) => {
                 <nav className='flex flex-col p-6 space-y-4'>
                     <a
                         href='#properties'
-                        className='font-medium text-gray-700 hover:text-blue-500'
+                        className='font-medium text-foreground hover:text-primary'
                     >
                         Properties
                     </a>
                     <a
                         href='#features'
-                        className='font-medium text-gray-700 hover:text-blue-500'
+                        className='font-medium text-foreground hover:text-primary'
                     >
                         Features
                     </a>
                     <a
                         href='#testimonials'
-                        className='font-medium text-gray-700 hover:text-blue-500'
+                        className='font-medium text-foreground hover:text-primary'
                     >
                         Testimonials
                     </a>
                     <a
                         href='#contact'
-                        className='font-medium text-gray-700 hover:text-blue-500'
+                        className='font-medium text-foreground hover:text-primary'
                     >
                         Contact
                     </a>
@@ -143,9 +155,7 @@ const Header: React.FC<Props> = ({ orgData }) => {
                     <Button variant='ghost' className='justify-start px-0'>
                         Log In
                     </Button>
-                    <Button className='bg-blue-600 hover:bg-blue-700'>
-                        View Properties
-                    </Button>
+                    <Button variant='default'>View Properties</Button>
                 </nav>
             </div>
         </header>

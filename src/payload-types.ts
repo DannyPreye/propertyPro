@@ -112,6 +112,8 @@ export interface Organization {
     logo?: (string | null) | Media;
     primaryColor?: string | null;
     secondaryColor?: string | null;
+    theme?: ('light' | 'dark' | 'system') | null;
+    accentColor?: string | null;
   };
   settings?: {
     allowTenantPortal?: boolean | null;
@@ -427,6 +429,8 @@ export interface OrganizationsSelect<T extends boolean = true> {
         logo?: T;
         primaryColor?: T;
         secondaryColor?: T;
+        theme?: T;
+        accentColor?: T;
       };
   settings?:
     | T

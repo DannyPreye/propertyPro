@@ -89,6 +89,23 @@ const Organization: CollectionConfig = {
                     type: 'text',
                     defaultValue: '#ffffff',
                 },
+                {
+                    name: 'theme',
+                    type: 'select',
+                    options: [
+                        { label: 'Light', value: 'light' },
+                        { label: 'Dark', value: 'dark' },
+                        { label: 'System', value: 'system' }
+                    ],
+                    defaultValue: 'system'
+                },
+                {
+                    name: 'accentColor',
+                    type: 'text',
+                    defaultValue: '#3b82f6',
+                }
+
+
             ],
         },
         {

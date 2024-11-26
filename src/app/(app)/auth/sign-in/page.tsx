@@ -30,7 +30,11 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (status == "authenticated") {
-            router.push(`/${session?.user.organization?.slug}`);
+            if (session.user.role === "admin") {
+                router.push(`/${session?.user.organization?.slug}/admin`);
+            } else {
+                router.push(`/${session?.user.organization?.slug}/tenant`);
+            }
         }
     }, [status]);
 

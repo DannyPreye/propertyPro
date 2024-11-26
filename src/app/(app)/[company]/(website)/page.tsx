@@ -116,8 +116,9 @@ const demoOrg = {
     },
 };
 
-const OrganizationLandingPage = () => {
+const OrganizationLandingPage = async () => {
     const orgData = demoOrg;
+
     const { primaryColor, secondaryColor } = orgData;
 
     return (

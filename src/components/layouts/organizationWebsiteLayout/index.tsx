@@ -2,9 +2,11 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Building2, Phone, Shield, Users } from "lucide-react";
+import { Organization } from "@/payload-types";
 
 interface Props {
     children: React.ReactNode;
+    organizationDetails: Organization;
 }
 
 const demoOrg = {
@@ -108,12 +110,16 @@ const demoOrg = {
     },
 };
 
-const OrganizationWebsiteLayout: React.FC<Props> = ({ children }) => {
+const OrganizationWebsiteLayout: React.FC<Props> = ({
+    children,
+    organizationDetails,
+}) => {
+    console.log("This is the organization details: ", organizationDetails);
     return (
         <div>
-            <Header orgData={demoOrg} />
+            <Header orgData={organizationDetails} />
             {children}
-            <Footer orgData={demoOrg} />
+            <Footer orgData={organizationDetails} />
         </div>
     );
 };
