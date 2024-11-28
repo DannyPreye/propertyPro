@@ -74,12 +74,10 @@ const SettingsHomepage: React.FC<Props> = async ({ params }) => {
     ];
 
     return (
-        <div className='container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-gray-100'>
+        <div className='container mx-auto px-4 py-8  bg-background text-foreground'>
             <div className='mb-8'>
-                <h1 className='text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2'>
-                    Settings
-                </h1>
-                <p className='text-gray-600 dark:text-gray-400'>
+                <h1 className='text-3xl font-bold b-2'>Settings</h1>
+                <p className='text-muted-foreground'>
                     Manage your account and preferences
                 </p>
             </div>
@@ -96,12 +94,12 @@ const SettingsHomepage: React.FC<Props> = async ({ params }) => {
                                     duration-300
                                     cursor-pointer
                                     group
-                                    bg-white
-                                    dark:bg-gray-800
-                                    dark:hover:bg-gray-700
+                                    // bg-white
+                                    // dark:bg-gray-800
+                                    // dark:hover:bg-gray-700
                                     border
-                                    border-gray-200
-                                    dark:border-gray-700
+                                    // border-gray-200
+                                    // dark:border-gray-700
                                 '
                             >
                                 <div className='p-6'>

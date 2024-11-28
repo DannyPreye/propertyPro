@@ -14,10 +14,10 @@ const FeaturesSection = () => {
         <section id='features' className='py-20'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='text-center mb-16'>
-                    <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+                    <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
                         Everything You Need to Manage Properties
                     </h2>
-                    <p className='text-xl text-gray-600'>
+                    <p className='text-xl text-muted-foreground'>
                         Powerful features designed for modern property
                         management
                     </p>
@@ -62,15 +62,20 @@ const FeaturesSection = () => {
                                 "Digital lease signing and management. Keep all your documents organized and accessible.",
                         },
                     ].map((feature, index) => (
-                        <Card key={index}>
+                        <Card
+                            key={index}
+                            className='hover:shadow-lg transition-shadow duration-300 border border-border'
+                        >
                             <CardHeader>
                                 <div className='w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4'>
                                     <feature.icon className='h-6 w-6 text-primary' />
                                 </div>
-                                <CardTitle>{feature.title}</CardTitle>
+                                <CardTitle className='text-foreground'>
+                                    {feature.title}
+                                </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className='text-gray-600'>
+                                <p className='text-muted-foreground'>
                                     {feature.description}
                                 </p>
                             </CardContent>

@@ -95,10 +95,10 @@ export interface Organization {
   id: string;
   name: string;
   slug: string;
-  contact: {
-    email: string;
-    phone: string;
-    address: string;
+  contact?: {
+    email?: string | null;
+    phone?: string | null;
+    address?: string | null;
   };
   description?: string | null;
   companySize?: ('1-10' | '11-50' | '51-100' | '101-500' | '501-1000') | null;

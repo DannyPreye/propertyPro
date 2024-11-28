@@ -4,14 +4,14 @@ import React from "react";
 
 const HeroSection = () => {
     return (
-        <section className='pt-32 pb-20 bg-gradient-to-b from-primary/5 to-transparent'>
+        <section className='pt-32 pb-20 bg-background'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='text-center'>
-                    <h1 className='text-4xl md:text-6xl font-bold text-gray-900 mb-6'>
+                    <h1 className='text-4xl md:text-6xl font-bold text-foreground mb-6'>
                         Property Management Made{" "}
                         <span className='text-primary'>Simple</span>
                     </h1>
-                    <p className='text-xl text-gray-600 mb-8 max-w-2xl mx-auto'>
+                    <p className='text-xl text-muted-foreground mb-8 max-w-2xl mx-auto'>
                         Streamline your property management with our all-in-one
                         platform. Perfect for landlords, property managers, and
                         tenants.
@@ -27,9 +27,9 @@ const HeroSection = () => {
                     </div>
                     <div className='mt-12'>
                         <img
-                            src='/api/placeholder/1200/600'
+                            src='/images/real-estate.jpg'
                             alt='Platform Dashboard'
-                            className='rounded-lg shadow-2xl'
+                            className='rounded-lg shadow-2xl border border-border'
                         />
                     </div>
                 </div>

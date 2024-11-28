@@ -6,10 +6,10 @@ const TestimonialsSection = () => {
         <section id='testimonials' className='py-20'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='text-center mb-16'>
-                    <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+                    <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
                         Trusted by Property Managers
                     </h2>
-                    <p className='text-xl text-gray-600'>
+                    <p className='text-xl text-muted-foreground'>
                         See what our customers have to say about PropertyPro
                     </p>
                 </div>
@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
                     ].map((testimonial, index) => (
                         <Card key={index}>
                             <CardContent className='pt-6'>
-                                <p className='text-gray-600 mb-6'>
+                                <p className='text-foreground mb-6'>
                                     {`"${testimonial.quote}"`}
                                 </p>
                                 <div className='flex items-center'>
@@ -46,10 +46,10 @@ const TestimonialsSection = () => {
                                         <p className='font-semibold'>
                                             {testimonial.author}
                                         </p>
-                                        <p className='text-sm text-gray-600'>
+                                        <p className='text-sm text-muted-foreground'>
                                             {testimonial.role}
                                         </p>
-                                        <p className='text-sm text-gray-600'>
+                                        <p className='text-sm text-muted-foreground'>
                                             {testimonial.company}
                                         </p>
                                     </div>

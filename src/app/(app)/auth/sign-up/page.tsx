@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
 import {
     CardContent,
     CardDescription,
@@ -14,8 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Building2, ChevronLeft, ChevronRight, User } from "lucide-react";
-import { getPayload } from "payload";
-import payloadConfig from "@/payload.config";
 import { register } from "../actions/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -390,6 +389,19 @@ const RegistrationForm = () => {
                         )}
                     </Formik>
                 </CardContent>
+
+                {/* Sign In Link */}
+                <div className='text-center pb-6'>
+                    <span className='text-sm text-muted-foreground mr-2'>
+                        Already have an account?
+                    </span>
+                    <Link
+                        href='/auth/sign-in'
+                        className='text-primary font-medium hover:underline'
+                    >
+                        Sign In
+                    </Link>
+                </div>
             </div>
         </div>
     );
