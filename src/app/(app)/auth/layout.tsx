@@ -34,9 +34,9 @@ const AuthLayout: React.FC<Props> = async ({ children }) => {
             </div>
 
             {/* Feature Showcase Side */}
-            <div className='hidden sticky  right-0 top-0 h-screen lg:flex flex-1 bg-primary/95  overflow-hidden items-center justify-center'>
+            <div className='hidden sticky  right-0 top-0 h-screen flex-col gap-4 lg:flex flex-1 bg-primary/95  overflow-hidden items-center justify-center'>
                 <div className='absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]' />
-                <div className='absolute top-8 left-8'>
+                <div className=''>
                     <Link
                         href='/'
                         className='flex items-center space-x-2 group'
