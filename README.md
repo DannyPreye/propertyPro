@@ -74,6 +74,12 @@ DATABASE_URL=your-database-url
 
 # Other configurations
 ...
+PAYLOAD_SECRET= generate one using openssl
+SMTP_USERNAME=
+SMTP_PASSWORD=
+SMTP_PORT=
+SMTP_HOST=
+FROM_ADDRESS=
 ```
 
 4. Run the development server
@@ -144,6 +150,7 @@ The platform is fully responsive with breakpoints:
 - `POST /api/[tenant]/properties`
 - `PUT /api/[tenant]/properties/[id]`
 - `DELETE /api/[tenant]/properties/[id]`
+and more
 
 ## 🛠 Development
 
@@ -168,13 +175,7 @@ npm run lint
 yarn lint
 ```
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
 
 ## 📄 License
 
@@ -185,7 +186,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Next.js team for the amazing framework
 - Vercel for hosting and deployment
 - All contributors and users of the platform
+- Payload CMS for the backend
 
-## 📞 Support
 
-For support, email support@yourplatform.com or open an issue in the GitHub repository.
+
