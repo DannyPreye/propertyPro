@@ -119,6 +119,7 @@ const OrganizationWebsiteLayout: React.FC<Props> = ({
         <div>
             <Header orgData={organizationDetails} />
             {children}
+            {/* @ts-ignore */}
             <Footer orgData={organizationDetails} />
         </div>
     );

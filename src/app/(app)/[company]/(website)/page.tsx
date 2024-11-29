@@ -119,8 +119,6 @@ const demoOrg = {
 const OrganizationLandingPage = async () => {
     const orgData = demoOrg;
 
-    const { primaryColor, secondaryColor } = orgData;
-
     return (
         <div className='min-h-screen'>
             {/* Hero Section */}
@@ -197,10 +195,10 @@ const OrganizationLandingPage = async () => {
             </section>
 
             {/* Features Section */}
-            <section id='features' className='py-24 px-6 bg-gray-50'>
+            <section id='features' className='py-24 px-6 bg-gray-50 '>
                 <div className='max-w-7xl mx-auto'>
                     <div className='text-center max-w-2xl mx-auto mb-16'>
-                        <h2 className='text-3xl font-bold mb-4'>
+                        <h2 className='text-3xl text-primary font-bold mb-4'>
                             Why Choose {orgData.name}
                         </h2>
                         <p className='text-gray-600'>
@@ -327,7 +325,7 @@ const OrganizationLandingPage = async () => {
 
                 <div className='relative z-10 max-w-7xl mx-auto px-6'>
                     <div className='text-center max-w-2xl mx-auto mb-16'>
-                        <h2 className='text-3xl font-bold mb-4'>
+                        <h2 className='text-3xl text-primary font-bold mb-4'>
                             What Our Residents Say
                         </h2>
                         <p className='text-gray-600'>
@@ -459,7 +457,7 @@ const OrganizationLandingPage = async () => {
                                         </label>
                                         <input
                                             type='text'
-                                            className='w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                                            className='w-full px-4 py-3 rounded-lg bg-transparent border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                             placeholder='John'
                                         />
                                     </div>
@@ -469,7 +467,7 @@ const OrganizationLandingPage = async () => {
                                         </label>
                                         <input
                                             type='text'
-                                            className='w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                                            className='w-full px-4 py-3 rounded-lg border bg-transparent border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                             placeholder='Doe'
                                         />
                                     </div>
@@ -481,7 +479,7 @@ const OrganizationLandingPage = async () => {
                                     </label>
                                     <input
                                         type='email'
-                                        className='w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                                        className='w-full px-4 py-3 rounded-lg border bg-transparent border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                         placeholder='john@example.com'
                                     />
                                 </div>
@@ -492,7 +490,7 @@ const OrganizationLandingPage = async () => {
                                     </label>
                                     <input
                                         type='tel'
-                                        className='w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                                        className='w-full px-4 py-3 rounded-lg border bg-transparent border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                         placeholder='(555) 123-4567'
                                     />
                                 </div>
@@ -503,7 +501,7 @@ const OrganizationLandingPage = async () => {
                                     </label>
                                     <textarea
                                         rows={4}
-                                        className='w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                                        className='w-full px-4 py-3 rounded-lg border bg-transparent border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                         placeholder="Tell us what you're looking for..."
                                     />
                                 </div>

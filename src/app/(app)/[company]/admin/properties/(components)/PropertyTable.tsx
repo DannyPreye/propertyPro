@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
     Table,
     TableBody,
@@ -34,71 +34,67 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
-import { getProperties } from "../actions";
+import { deleteProperty, getProperties } from "../actions";
 import { useSession } from "next-auth/react";
-
-// Mock data - replace with actual data fetching
-const mockProperties = [
-    {
-        id: "1",
-        name: "Luxury Apartment Downtown",
-        type: "apartment",
-        status: "active",
-        rentAmount: 2500,
-    },
-    {
-        id: "2",
-        name: "Spacious Family Home",
-        type: "house",
-        status: "vacant",
-        rentAmount: 3200,
-    },
-    {
-        id: "3",
-        name: "Modern Studio Loft",
-        type: "apartment",
-        status: "maintenance",
-        rentAmount: 1800,
-    },
-    {
-        id: "4",
-        name: "Suburban Townhouse",
-        type: "townhouse",
-        status: "inactive",
-        rentAmount: 2800,
-    },
-];
+import { Property } from "@/payload-types";
+import { PropertiesTableLoading } from "./PropertiesTableLoading";
+import { PropertiesTableError } from "./PropertiesTableError";
+import { useParams, useRouter } from "next/navigation";
 
 export function PropertiesTable() {
-    const [properties, setProperties] = useState(mockProperties);
     const { toast } = useToast();
-    const { data: session } = useSession();
+    const { company } = useParams();
+    const router = useRouter();
 
     // State for table controls
     const [searchTerm, setSearchTerm] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
-    const [sortColumn, setSortColumn] = useState<
-        keyof (typeof mockProperties)[0] | null
-    >(null);
-    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+    const [sortColumn, setSortColumn] = useState("createdAt");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
-    const { data: propertiesData, refetch } = useQuery({
-        queryKey: ["properties", session?.user?.organization?.id],
-        queryFn: () => getProperties(session?.user?.organization?.id as string),
+    const {
+        data: propertiesData,
+        refetch,
+        isLoading,
+        error,
+    } = useQuery({
+        queryKey: [
+            "properties",
+            filterStatus,
+            searchTerm,
+            currentPage,
+            sortColumn,
+            sortDirection,
+        ],
+        queryFn: () =>
+            getProperties({
+                page: currentPage,
+                limit: itemsPerPage,
+                filter: filterStatus === "all" ? "" : filterStatus,
+                search: searchTerm,
+                sort: sortDirection === "asc" ? sortColumn : `-${sortColumn}`,
+            }),
     });
 
-    console.log(propertiesData);
-
     // Handle property deletion
-    const handleDeleteProperty = (id: string) => {
-        setProperties(properties.filter((prop) => prop.id !== id));
-        toast({
-            title: "Property Deleted",
-            description: "The property has been successfully removed.",
-            variant: "default",
-        });
+    const handleDeleteProperty = async (id: string) => {
+        try {
+            const res = await deleteProperty(id);
+            refetch();
+            toast({
+                title: "Property Deleted",
+                description: "The property has been successfully removed.",
+                variant: "default",
+            });
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "Failed to delete property. Please try again.",
+                variant: "destructive",
+            });
+        }
     };
 
     // Render status badge
@@ -117,46 +113,8 @@ export function PropertiesTable() {
         );
     };
 
-    // Filtered and sorted properties
-    const filteredProperties = useMemo(() => {
-        return properties
-            .filter(
-                (prop) =>
-                    prop.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) &&
-                    (filterStatus === "" || prop.status === filterStatus)
-            )
-            .sort((a, b) => {
-                if (!sortColumn) return 0;
-
-                const aValue = a[sortColumn];
-                const bValue = b[sortColumn];
-
-                if (typeof aValue === "string" && typeof bValue === "string") {
-                    return sortDirection === "asc"
-                        ? aValue.localeCompare(bValue)
-                        : bValue.localeCompare(aValue);
-                }
-
-                if (typeof aValue === "number" && typeof bValue === "number") {
-                    return sortDirection === "asc"
-                        ? aValue - bValue
-                        : bValue - aValue;
-                }
-
-                return 0;
-            });
-    }, [properties, searchTerm, filterStatus, sortColumn, sortDirection]);
-
-    // Paginated properties
-    const paginatedProperties = useMemo(() => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        return filteredProperties.slice(startIndex, startIndex + itemsPerPage);
-    }, [filteredProperties, currentPage, itemsPerPage]);
-
     // Handle column sorting
-    const handleSort = (column: keyof (typeof mockProperties)[0]) => {
+    const handleSort = (column: string) => {
         if (sortColumn === column) {
             // Toggle sort direction if same column
             setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -168,7 +126,7 @@ export function PropertiesTable() {
     };
 
     // Render sort icon
-    const renderSortIcon = (column: keyof (typeof mockProperties)[0]) => {
+    const renderSortIcon = (column: string) => {
         if (sortColumn !== column) return null;
         return sortDirection === "asc" ? (
             <ChevronUpIcon className='h-4 w-4 inline ml-1' />
@@ -177,8 +135,15 @@ export function PropertiesTable() {
         );
     };
 
-    // Pagination controls
-    const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+    // If data is loading
+    if (isLoading) return <PropertiesTableLoading />;
+    if (error)
+        return (
+            <PropertiesTableError
+                onRetry={refetch}
+                error='Error Loading properties'
+            />
+        );
 
     return (
         <div className='space-y-4'>
@@ -187,12 +152,18 @@ export function PropertiesTable() {
                 <Input
                     placeholder='Search properties...'
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setCurrentPage(1);
+                    }}
                     className='max-w-xs'
                 />
                 <Select
-                    value={filterStatus || ""}
-                    onValueChange={setFilterStatus}
+                    value={filterStatus || "all"}
+                    onValueChange={(value) => {
+                        setFilterStatus(value);
+                        setCurrentPage(1);
+                    }}
                 >
                     <SelectTrigger className='w-[180px]'>
                         <SelectValue placeholder='Filter Status' />
@@ -208,109 +179,144 @@ export function PropertiesTable() {
             </div>
 
             {/* Properties Table */}
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead
-                            onClick={() => handleSort("name")}
-                            className='cursor-pointer hover:bg-gray-100'
-                        >
-                            Name {renderSortIcon("name")}
-                        </TableHead>
-                        <TableHead
-                            onClick={() => handleSort("type")}
-                            className='cursor-pointer hover:bg-gray-100'
-                        >
-                            Type {renderSortIcon("type")}
-                        </TableHead>
-                        <TableHead
-                            onClick={() => handleSort("status")}
-                            className='cursor-pointer hover:bg-gray-100'
-                        >
-                            Status {renderSortIcon("status")}
-                        </TableHead>
-                        <TableHead
-                            className='text-right cursor-pointer hover:bg-gray-100'
-                            onClick={() => handleSort("rentAmount")}
-                        >
-                            Rent/Price {renderSortIcon("rentAmount")}
-                        </TableHead>
-                        <TableHead className='text-right'>Actions</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {paginatedProperties.map((property) => (
-                        <TableRow key={property.id}>
-                            <TableCell className='font-medium'>
-                                {property.name}
-                            </TableCell>
-                            <TableCell>
-                                {property.type.charAt(0).toUpperCase() +
-                                    property.type.slice(1)}
-                            </TableCell>
-                            <TableCell>
-                                {renderStatusBadge(property.status)}
-                            </TableCell>
-                            <TableCell className='text-right'>
-                                ${property.rentAmount.toLocaleString()}
-                            </TableCell>
-                            <TableCell className='text-right'>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant='ghost' size='icon'>
-                                            <MoreHorizontalIcon className='h-4 w-4' />
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align='end'>
-                                        <DropdownMenuItem className='cursor-pointer'>
-                                            <EditIcon className='mr-2 h-4 w-4' />{" "}
-                                            Edit
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem
-                                            className='cursor-pointer text-destructive focus:text-destructive'
-                                            onSelect={() =>
-                                                handleDeleteProperty(
-                                                    property.id
-                                                )
-                                            }
-                                        >
-                                            <TrashIcon className='mr-2 h-4 w-4' />{" "}
-                                            Delete
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-
-            {/* Pagination Controls */}
-            <div className='flex justify-between items-center'>
-                <span>
-                    Page {currentPage} of {totalPages}
-                </span>
-                <div className='space-x-2'>
-                    <Button
-                        variant='outline'
-                        onClick={() =>
-                            setCurrentPage((p) => Math.max(1, p - 1))
-                        }
-                        disabled={currentPage === 1}
-                    >
-                        Previous
-                    </Button>
-                    <Button
-                        variant='outline'
-                        onClick={() =>
-                            setCurrentPage((p) => Math.min(totalPages, p + 1))
-                        }
-                        disabled={currentPage === totalPages}
-                    >
-                        Next
-                    </Button>
-                </div>
-            </div>
+            {propertiesData?.docs && propertiesData?.docs?.length > 0 ? (
+                <>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead
+                                    onClick={() => handleSort("name")}
+                                    className='cursor-pointer '
+                                >
+                                    Name {renderSortIcon("name")}
+                                </TableHead>
+                                <TableHead
+                                    onClick={() => handleSort("propertyType")}
+                                    className='cursor-pointer '
+                                >
+                                    Type {renderSortIcon("propertyType")}
+                                </TableHead>
+                                <TableHead
+                                    onClick={() => handleSort("status")}
+                                    className='cursor-pointer'
+                                >
+                                    Status {renderSortIcon("status")}
+                                </TableHead>
+                                <TableHead
+                                    className='text-right cursor-pointer'
+                                    onClick={() =>
+                                        handleSort("rentalDetails.rentAmount")
+                                    }
+                                >
+                                    Rent/Price{" "}
+                                    {renderSortIcon("rentalDetails.rentAmount")}
+                                </TableHead>
+                                <TableHead className='text-right'>
+                                    Actions
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {propertiesData?.docs?.map((property: Property) => (
+                                <TableRow
+                                    onClick={() =>
+                                        router.push(
+                                            `/${company}/admin/properties/${property.id}`
+                                        )
+                                    }
+                                    className='cursor-pointer hover:text-primary-foreground hover:bg-primary'
+                                    key={property.id}
+                                >
+                                    <TableCell className='font-medium'>
+                                        {property?.name}
+                                    </TableCell>
+                                    <TableCell>
+                                        {property?.propertyType
+                                            .charAt(0)
+                                            .toUpperCase() +
+                                            property?.propertyType.slice(1)}
+                                    </TableCell>
+                                    <TableCell>
+                                        {renderStatusBadge(
+                                            property?.status as string
+                                        )}
+                                    </TableCell>
+                                    <TableCell className='text-right'>
+                                        $
+                                        {property?.rentalDetails?.rentAmount.toLocaleString()}
+                                    </TableCell>
+                                    <TableCell className='text-right'>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button
+                                                    variant='ghost'
+                                                    size='icon'
+                                                >
+                                                    <MoreHorizontalIcon className='h-4 w-4' />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align='end'>
+                                                <DropdownMenuItem className='cursor-pointer'>
+                                                    <EditIcon className='mr-2 h-4 w-4' />{" "}
+                                                    Edit
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem
+                                                    className='cursor-pointer text-destructive focus:text-destructive'
+                                                    onSelect={() =>
+                                                        handleDeleteProperty(
+                                                            property.id
+                                                        )
+                                                    }
+                                                >
+                                                    <TrashIcon className='mr-2 h-4 w-4' />{" "}
+                                                    Delete
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    {/* Pagination Controls */}
+                    <div className='flex justify-between items-center'>
+                        <span>
+                            Page {propertiesData.page} of{" "}
+                            {propertiesData.totalPages}
+                        </span>
+                        <div className='space-x-2'>
+                            <Button
+                                variant='outline'
+                                onClick={() =>
+                                    setCurrentPage((p) => Math.max(1, p - 1))
+                                }
+                                disabled={propertiesData?.page === 1}
+                            >
+                                Previous
+                            </Button>
+                            <Button
+                                variant='outline'
+                                onClick={() =>
+                                    setCurrentPage((p) =>
+                                        Math.min(
+                                            propertiesData?.totalPages,
+                                            p + 1
+                                        )
+                                    )
+                                }
+                                disabled={
+                                    propertiesData?.page ===
+                                    propertiesData?.totalPages
+                                }
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

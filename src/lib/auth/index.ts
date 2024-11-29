@@ -77,16 +77,17 @@ const refreshToken = async (token: string): Promise<RefreshTokenResponse> =>
     try {
         const { data } = await axios.post<RefreshTokenResponse>(
             `${process.env.NEXTAUTH_URL}/api/users/refresh-token`,
-            {},
+
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
+
                 },
             }
         );
         return data;
-    } catch (error) {
-        console.error("Token refresh failed:", error);
+    } catch (error: any) {
+        console.error("Token refresh failed:", error?.response?.data);
         throw error;
     }
 };
@@ -202,8 +203,8 @@ const authOptions: NextAuthOptions = {
             }
         },
     },
-    // debug: process.env.NODE_ENV === "development",
-    debug: true,
+    debug: process.env.NODE_ENV === "development",
+
     secret: process.env.NEXTAUTH_SECRET,
 };
 
