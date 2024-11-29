@@ -2,135 +2,162 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global Font Configuration */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
 @layer base {
     :root {
-        /* Main brand color - A professional teal */
-        --primary: 187 75% 43%;
+        /* Brand Colors */
+        --primary: 187 60% 40%; /* Teal */
         --primary-foreground: 0 0% 100%;
 
-        /* Complementary accent - Warm coral */
-        --accent: 12 85% 60%;
+        --accent: 12 70% 50%; /* Coral */
         --accent-foreground: 0 0% 100%;
 
-        /* Success/Positive color - Fresh green */
-        --success: 142 72% 45%;
+        /* Success and Destructive Colors */
+        --success: 142 50% 40%; /* Green */
         --success-foreground: 0 0% 100%;
 
-        /* Clean backgrounds */
-        --background: 204 20% 99%;
-        --foreground: 200 15% 20%;
+        --destructive: 0 65% 50%; /* Red */
+        --destructive-foreground: 0 0% 98%;
 
-        /* Cards and UI elements */
-        --card: 0 0% 100%;
-        --card-foreground: 200 15% 20%;
+        /* Background and Foreground */
+        --background: 210 20% 98%; /* Light Gray */
+        --foreground: 0 0% 20%; /* Dark Charcoal */
+
+        /* Card and Popover Colors */
+        --card: 0 0% 100%; /* White */
+        --card-foreground: 0 0% 20%; /* Dark Charcoal */
+
         --popover: 0 0% 100%;
-        --popover-foreground: 200 15% 20%;
+        --popover-foreground: 0 0% 20%;
 
-        /* Secondary actions and backgrounds */
+        /* Secondary Colors */
         --secondary: 199 50% 96%;
-        --secondary-foreground: 200 15% 20%;
+        --secondary-foreground: 0 0% 20%;
 
-        /* Muted elements */
+        /* Muted Colors */
         --muted: 200 10% 92%;
         --muted-foreground: 200 10% 45%;
 
-        /* Destructive actions */
-        --destructive: 0 85% 60%;
-        --destructive-foreground: 0 0% 98%;
+        /* UI Elements */
+        --border: 210 15% 90%;
+        --input: 210 15% 90%;
+        --ring: 187 60% 40%;
 
-        /* UI elements */
-        --border: 200 15% 90%;
-        --input: 200 15% 90%;
-        --ring: 187 75% 43%;
+        /* Sidebar */
+        --sidebar-background: 210 20% 95%;
+        --sidebar-foreground: 0 0% 20%;
+        --sidebar-border: 210 15% 90%;
+        --sidebar-ring: 187 60% 40%;
 
-        /* Chart colors - Property analytics */
-        --chart-1: 187 75% 43%; /* Teal */
-        --chart-2: 12 85% 60%; /* Coral */
-        --chart-3: 142 72% 45%; /* Green */
+        /* Charts */
+        --chart-1: 187 60% 40%; /* Teal */
+        --chart-2: 12 70% 50%; /* Coral */
+        --chart-3: 142 50% 40%; /* Green */
         --chart-4: 231 68% 58%; /* Blue */
         --chart-5: 270 65% 60%; /* Purple */
 
-        /* Sidebar specific */
-        --sidebar-background: 187 30% 98%;
-        --sidebar-foreground: 200 15% 20%;
-        --sidebar-primary: 187 75% 43%;
-        --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 12 85% 60%;
-        --sidebar-accent-foreground: 0 0% 100%;
-        --sidebar-border: 187 15% 90%;
-        --sidebar-ring: 187 75% 43%;
-
-        --radius: 0.5rem;
+        /* Radius */
+        --radius: 0.6rem;
     }
 
     .dark {
-        /* Main brand color - Brighter in dark mode */
+        /* Brand Colors - Dark Mode */
         --primary: 187 70% 48%;
         --primary-foreground: 0 0% 100%;
 
-        /* Complementary accent - Warmer in dark mode */
         --accent: 12 85% 65%;
         --accent-foreground: 0 0% 100%;
 
-        /* Success color - Adjusted for dark mode */
-        --success: 142 70% 48%;
+        /* Success and Destructive Colors */
+        --success: 142 70% 50%;
         --success-foreground: 0 0% 100%;
 
-        /* Dark mode backgrounds */
-        --background: 200 50% 8%;
-        --foreground: 200 10% 98%;
-
-        /* Cards and UI elements */
-        --card: 200 45% 10%;
-        --card-foreground: 200 10% 98%;
-        --popover: 200 45% 10%;
-        --popover-foreground: 200 10% 98%;
-
-        /* Secondary actions and backgrounds */
-        --secondary: 199 50% 15%;
-        --secondary-foreground: 200 10% 98%;
-
-        /* Muted elements */
-        --muted: 200 40% 15%;
-        --muted-foreground: 200 10% 70%;
-
-        /* Destructive actions */
         --destructive: 0 85% 65%;
         --destructive-foreground: 0 0% 98%;
 
-        /* UI elements */
-        --border: 200 45% 20%;
-        --input: 200 45% 20%;
+        /* Background and Foreground */
+        --background: 200 20% 12%;
+        --foreground: 0 0% 90%;
+
+        /* Card and Popover Colors */
+        --card: 200 25% 15%;
+        --card-foreground: 0 0% 90%;
+
+        --popover: 200 25% 15%;
+        --popover-foreground: 0 0% 90%;
+
+        /* Secondary Colors */
+        --secondary: 199 50% 15%;
+        --secondary-foreground: 0 0% 90%;
+
+        /* Muted Colors */
+        --muted: 200 40% 15%;
+        --muted-foreground: 200 10% 70%;
+
+        /* UI Elements */
+        --border: 200 25% 25%;
+        --input: 200 25% 25%;
         --ring: 187 70% 48%;
 
-        /* Chart colors - Brighter for dark mode */
-        --chart-1: 187 70% 55%; /* Teal */
-        --chart-2: 12 85% 65%; /* Coral */
-        --chart-3: 142 70% 50%; /* Green */
-        --chart-4: 231 68% 65%; /* Blue */
-        --chart-5: 270 65% 65%; /* Purple */
-
-        /* Sidebar specific */
-        --sidebar-background: 200 45% 10%;
-        --sidebar-foreground: 200 10% 98%;
-        --sidebar-primary: 187 70% 48%;
-        --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 12 85% 65%;
-        --sidebar-accent-foreground: 0 0% 100%;
-        --sidebar-border: 200 45% 20%;
+        /* Sidebar */
+        --sidebar-background: 200 25% 15%;
+        --sidebar-foreground: 0 0% 90%;
+        --sidebar-border: 200 25% 25%;
         --sidebar-ring: 187 70% 48%;
     }
-}
 
-@layer base {
+    /* Base Styles */
+    body {
+        @apply bg-background text-foreground;
+    }
+
     * {
         @apply border-border;
     }
-    body {
-        @apply bg-background text-foreground;
+
+    h1,
+    h2,
+    h3 {
+        font-family: "Merriweather", Georgia, serif;
+        color: hsl(var(--foreground));
+    }
+
+    .card {
+        background-color: hsl(var(--card));
+        color: hsl(var(--card-foreground));
+        border: 1px solid hsl(var(--border));
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0%, 0%, 0.1);
+    }
+
+    .btn-primary {
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border-radius: var(--radius);
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: hsl(187, 60%, 35%);
+        }
+    }
+
+    .btn-secondary {
+        background-color: hsl(var(--accent));
+        color: hsl(var(--accent-foreground));
+        border-radius: var(--radius);
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: hsl(12, 70%, 45%);
+        }
     }
 }

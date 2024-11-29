@@ -157,10 +157,15 @@ export interface Property {
     city: string;
     state: string;
     zip: string;
+    geolocation?: {
+      latitude?: number | null;
+      longitude?: number | null;
+    };
   };
   images?:
     | {
         image: string | Media;
+        caption?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -186,7 +191,39 @@ export interface Property {
     };
     [k: string]: unknown;
   } | null;
-  status?: ('active' | 'maintenance' | 'inactive') | null;
+  status?: ('active' | 'maintenance' | 'inactive' | 'occupied' | 'vacant') | null;
+  propertyType: 'apartment' | 'house' | 'condo' | 'townhouse' | 'commercial';
+  rentalDetails: {
+    rentAmount: number;
+    securityDeposit?: number | null;
+    availableFrom?: string | null;
+    leaseTerms?: ('6_months' | '12_months' | 'month_to_month') | null;
+  };
+  utilities?: {
+    includedUtilities?:
+      | {
+          utility?: ('water' | 'electricity' | 'gas' | 'internet' | 'trash') | null;
+          id?: string | null;
+        }[]
+      | null;
+    utilityEstimates?:
+      | {
+          utility?: ('water' | 'electricity' | 'gas' | 'internet' | 'trash') | null;
+          estimatedMonthlyCost?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  currentTenant?: (string | null) | User;
+  maintenanceHistory?:
+    | {
+        date: string;
+        description: string;
+        performedBy?: string | null;
+        cost?: number | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -358,11 +395,18 @@ export interface PropertiesSelect<T extends boolean = true> {
         city?: T;
         state?: T;
         zip?: T;
+        geolocation?:
+          | T
+          | {
+              latitude?: T;
+              longitude?: T;
+            };
       };
   images?:
     | T
     | {
         image?: T;
+        caption?: T;
         id?: T;
       };
   amenities?:
@@ -374,6 +418,42 @@ export interface PropertiesSelect<T extends boolean = true> {
       };
   description?: T;
   status?: T;
+  propertyType?: T;
+  rentalDetails?:
+    | T
+    | {
+        rentAmount?: T;
+        securityDeposit?: T;
+        availableFrom?: T;
+        leaseTerms?: T;
+      };
+  utilities?:
+    | T
+    | {
+        includedUtilities?:
+          | T
+          | {
+              utility?: T;
+              id?: T;
+            };
+        utilityEstimates?:
+          | T
+          | {
+              utility?: T;
+              estimatedMonthlyCost?: T;
+              id?: T;
+            };
+      };
+  currentTenant?: T;
+  maintenanceHistory?:
+    | T
+    | {
+        date?: T;
+        description?: T;
+        performedBy?: T;
+        cost?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
